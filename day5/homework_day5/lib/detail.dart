@@ -1,39 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:homework_day5/data/product_data.dart';
 
-class Details extends StatelessWidget {
-  const Details({ Key? key }) : super(key: key);
+
+
+class ProductDetail extends StatelessWidget {
+  Product product;
+
+  ProductDetail(this.product, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Stack(
-          children: [
-            Image.network("https://cf.shopee.vn/file/a5fe18735fc8b43e03453fc963574527",
-            width: 640,
-            height: 400,
-            ),
-            Positioned(
-              top: 70,
-              left: 20,
-              child: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
-                Navigator.of(context).pop();
-              },),
-            ),
-            Positioned(
-              bottom: 50,
-              left: 70,
-              child: Text("Demo",style: TextStyle(color: Colors.red,fontSize: 30),)
+            children: [
+              Image.network(
+                product.image,
+                height: 500,
+                fit: BoxFit.fill,
               ),
-          ],
-        ),
-        SizedBox(height: 10,),
-        Text("\$92.56",style: TextStyle(fontSize: 20,color: Colors.grey),),
-        SizedBox(height: 10,),
-        Text("This is demo product")
-        ], 
-        
+              Positioned(
+                  top: 30,
+                  child: Container(
+                    margin: const EdgeInsets.all(16),
+                    child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                        )),
+                  )),
+              Positioned(
+                  bottom: 24,
+                  left: 24,
+                  child: Text(
+                    product.name,
+                    style:
+                    const TextStyle(color: Colors.white, fontSize: 20),
+                  ))
+            ],
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Text(
+            product.price,
+            style: const TextStyle(color: Colors.black, fontSize: 50),
+          )
+        ],
       ),
     );
   }
