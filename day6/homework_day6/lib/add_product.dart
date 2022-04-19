@@ -1,43 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:homework_day6/product_model.dart';
 
-class EditProduct extends StatefulWidget {
-  ProductModel productModel;
-
-  EditProduct({required this.productModel});
-
+class AddProduct extends StatefulWidget {
   @override
-  State<EditProduct> createState() => _EditProductState();
+  State<AddProduct> createState() => _AddProductState();
 }
 
-class _EditProductState extends State<EditProduct> {
+class _AddProductState extends State<AddProduct> {
   FocusNode myFocusNode = new FocusNode();
 
-  late TextEditingController titleController;
-  late TextEditingController priceController;
-  late TextEditingController descriptrionController;
-  late TextEditingController imageURLController;
+  TextEditingController titleController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController descriptrionController = TextEditingController();
+  TextEditingController imageURLController = TextEditingController();
 
   String url = '';
+  String title = '';
+  double price = 0.0;
   bool _loadingImage = false;
-
-  @override
-  void initState() {
-    titleController = TextEditingController(text: widget.productModel.title);
-    priceController =
-        TextEditingController(text: widget.productModel.price.toString());
-    descriptrionController =
-        TextEditingController(text: widget.productModel.description);
-    imageURLController =
-        TextEditingController(text: widget.productModel.imageURL);
-    super.initState();
-    Future.delayed(Duration.zero, () {
-      setState(() {
-        url = widget.productModel.imageURL;
-      });
-      loadImage();
-    });
-  }
 
   void loadImage() {
     _loadingImage = true;
@@ -55,7 +34,7 @@ class _EditProductState extends State<EditProduct> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text('Edit Product'),
+        title: Text('Add New Product'),
         centerTitle: true,
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.save))],
       ),
@@ -137,7 +116,6 @@ class _EditProductState extends State<EditProduct> {
               ],
             ),
             TextFormField(
-              //initialValue: widget.productModel.title,
               controller: titleController,
               decoration: InputDecoration(
                 labelStyle: TextStyle(
@@ -148,7 +126,6 @@ class _EditProductState extends State<EditProduct> {
               ),
             ),
             TextFormField(
-              //initialValue: widget.productModel.price.toString(),
               controller: priceController,
               decoration: InputDecoration(
                 //alignLabelWithHint: true,
@@ -160,7 +137,6 @@ class _EditProductState extends State<EditProduct> {
               ),
             ),
             TextFormField(
-              //initialValue: widget.productModel.description,
               controller: descriptrionController,
               decoration: InputDecoration(
                 //alignLabelWithHint: true,
@@ -207,7 +183,6 @@ class _EditProductState extends State<EditProduct> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: TextFormField(
-                          //initialValue: widget.productModel.imageURL,
                           controller: imageURLController,
                           onChanged: (value) {
                             setState(() {
